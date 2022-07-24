@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :hello, only: [:index]
+      resources :users, only: [:create, :update]
+      get "users/get_user" => "users#get_user"
     end
   end
 end
