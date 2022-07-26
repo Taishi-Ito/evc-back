@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       resources :hello, only: [:index]
       resources :users, only: [:create, :update]
       get "users/get_user" => "users#get_user"
+      delete "users/destroy" => "users#destroy"
     end
   end
 end

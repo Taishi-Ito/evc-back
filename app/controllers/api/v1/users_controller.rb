@@ -10,6 +10,16 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
+  def destroy
+    user = Api::V1::User.find_by(uid: params["uid"])
+    begin
+      user.destroy
+      render json: {is_destroy: true}
+    rescue => exception
+      render json: {is_destroy: false, error_message: exception}
+    end
+  end
+
   def get_user
     user = Api::V1::User.find_by(uid: params["uid"])
     if user
