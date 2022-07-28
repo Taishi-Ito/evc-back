@@ -20,8 +20,8 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
-  def get_user
-    user = Api::V1::User.find_by(uid: params["uid"])
+  def show
+    user = Api::V1::User.find_by(uid: params["id"])
     if user
       if user.name
         render json: {"is_user": true, "is_name": true, "name": user.name, "locale": user.locale}
