@@ -1,17 +1,16 @@
-class Api::V1::UsersController < ApplicationController
-
+class UsersController < ApplicationController
   def create
-    user = Api::V1::User.new(user_params)
+    user = User.new(user_params)
     if user.valid?
       user.save
       render json: {"name": user.name, "locale": user.locale}, status: 200
     else
-      render json: {"name": nil, "locale": nil}, status: 200
+      render json: {"name": nil, "locale": nil}, status: 400
     end
   end
 
   def destroy
-    user = Api::V1::User.find_by(uid: params["uid"])
+    user = User.find_by(uid: params["uid"])
     begin
       user.destroy
       render json: {is_destroy: true}
@@ -21,7 +20,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def show
-    user = Api::V1::User.find_by(uid: params["id"])
+    user = User.find_by(uid: params["id"])
     if user
       if user.name
         render json: {"is_user": true, "is_name": true, "name": user.name, "locale": user.locale}
