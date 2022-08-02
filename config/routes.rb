@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   # end
   resources :users, only: [:create, :update, :show]
   delete "users/destroy" => "users#destroy"
+  resources :work_groups
 end
