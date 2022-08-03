@@ -6,7 +6,7 @@ class WorkGroupsController < ApplicationController
     if work_groups
       render json: {work_group_titles: work_group_titles}, status: 200
     else
-      render status: 400
+      render json: {work_group_titles: nil}, status: 200
     end
   end
 
