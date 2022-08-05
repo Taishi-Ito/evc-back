@@ -1,6 +1,6 @@
 require "test_helper"
 
-class WorkGroupsControllerTest < ActionDispatch::IntegrationTest
+class Api::V1::UserTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

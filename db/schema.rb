@@ -10,26 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_30_013301) do
+ActiveRecord::Schema.define(version: 2022_08_04_135202) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "users", force: :cascade do |t|
+  create_table "api_v1_users", force: :cascade do |t|
     t.string "name"
-    t.string "uid"
     t.string "locale"
+    t.string "uid"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "work_groups", force: :cascade do |t|
+  create_table "api_v1_work_groups", force: :cascade do |t|
     t.string "title"
-    t.bigint "user_id", null: false
+    t.bigint "api_v1_user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_work_groups_on_user_id"
+    t.index ["api_v1_user_id"], name: "index_api_v1_work_groups_on_api_v1_user_id"
   end
 
-  add_foreign_key "work_groups", "users"
+  add_foreign_key "api_v1_work_groups", "api_v1_users"
 end

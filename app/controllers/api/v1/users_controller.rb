@@ -1,16 +1,20 @@
-class UsersController < ApplicationController
+class Api::V1::UsersController < ApplicationController
   def create
-    user = User.new(user_params)
+    user = Api::V1::User.new(user_params)
+    puts "~~~(1)~~~~~#{}~~~~~~~"
     if user.valid?
+      puts "~~~(2)~~~~~#{}~~~~~~~"
       user.save
+      puts "~~~(3)~~~~~#{}~~~~~~~"
       render json: {"name": user.name, "locale": user.locale}, status: 200
     else
+      puts "~~~(4)~~~~~#{}~~~~~~~"
       render json: {"name": nil, "locale": nil}, status: 400
     end
   end
 
   def destroy
-    user = User.find_by(uid: params["uid"])
+    user = Api::V1::User.find_by(uid: params["uid"])
     begin
       user.destroy
       render json: {is_destroy: true}
@@ -20,7 +24,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    user = User.find_by(uid: params["id"])
+    user = Api::V1::User.find_by(uid: params["id"])
     if user
       if user.name
         render json: {"is_user": true, "is_name": true, "name": user.name, "locale": user.locale}
