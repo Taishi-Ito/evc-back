@@ -1,14 +1,10 @@
 class Api::V1::UsersController < ApplicationController
   def create
     user = Api::V1::User.new(user_params)
-    puts "~~~(1)~~~~~#{}~~~~~~~"
     if user.valid?
-      puts "~~~(2)~~~~~#{}~~~~~~~"
       user.save
-      puts "~~~(3)~~~~~#{}~~~~~~~"
       render json: {"name": user.name, "locale": user.locale}, status: 200
     else
-      puts "~~~(4)~~~~~#{}~~~~~~~"
       render json: {"name": nil, "locale": nil}, status: 400
     end
   end

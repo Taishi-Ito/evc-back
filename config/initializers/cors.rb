@@ -7,7 +7,11 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins ENV["API_DOMAIN"] || 'localhost:8080'
+    if Rails.env.production?
+      origins ENV["API_DOMAIN"] || 'localhost:8080'
+    else
+      origins '*'
+    end
 
     resource '*',
       headers: :any,
