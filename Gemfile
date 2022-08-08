@@ -44,3 +44,4 @@ gem 'net-imap'
 gem 'net-pop'
 
 gem 'dotenv-rails'
+gem 'firebase-auth-rails'
