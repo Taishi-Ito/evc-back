@@ -1,4 +1,6 @@
 class Api::V1::UsersController < ApplicationController
+  skip_before_action :authenticate_user
+
   def create
     raise ArgumentError, 'BadRequest Parameter' if payload.blank?
     user = Api::V1::User.new(user_params.merge("uid": payload['sub']))
