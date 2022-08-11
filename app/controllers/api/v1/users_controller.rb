@@ -1,8 +1,7 @@
 class Api::V1::UsersController < ApplicationController
-  skip_before_action :authenticate_user
+  # skip_before_action :authenticate_user
 
   def create
-    raise ArgumentError, 'BadRequest Parameter' if payload.blank?
     user = Api::V1::User.new(user_params.merge("uid": payload['sub']))
     if user.valid?
       user.save
@@ -16,9 +15,9 @@ class Api::V1::UsersController < ApplicationController
     user = Api::V1::User.find_by(uid: params["uid"])
     begin
       user.destroy
-      render json: {is_destroy: true}
+      render json: {is_destroy: true}, status: 200
     rescue => exception
-      render json: {is_destroy: false, error_message: exception}
+      render json: {is_destroy: false, error_message: exception}, status: 400
     end
   end
 
@@ -38,17 +37,5 @@ class Api::V1::UsersController < ApplicationController
   private
   def user_params
     params.require(:user).permit(:name, :locale)
-  end
-
-  def token_from_request_headers
-    request.headers['Authorization']&.split&.last
-  end
-
-  def token
-    params[:token] || token_from_request_headers
-  end
-
-  def payload
-    @payload ||= FirebaseIdToken::Signature.verify token
   end
 end
