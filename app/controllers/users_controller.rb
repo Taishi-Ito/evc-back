@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  # before_action :authenticate_user
+  skip_before_action :authenticate_user
+  before_action :check_auth
   def create
     user = User.new(user_params.merge("uid": payload['sub']))
     if user.valid?
@@ -21,7 +22,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    puts "~~~(current_user)~~~~~#{current_user.name}~~~~~~~"
     user = User.find_by(uid: params["id"])
     if user
       if user.name
@@ -37,5 +37,21 @@ class UsersController < ApplicationController
   private
   def user_params
     params.require(:user).permit(:name, :locale)
+  end
+
+  def check_auth
+    raise ArgumentError, 'BadRequest Parameter' if payload.blank?
+  end
+
+  def token_from_request_headers
+    request.headers['Authorization']&.split&.last
+  end
+
+  def token
+    params[:token] || token_from_request_headers
+  end
+
+  def payload
+    @payload ||= FirebaseIdToken::Signature.verify token
   end
 end
