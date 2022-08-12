@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::API
   include Firebase::Auth::Authenticable
+  before_action :authenticate_user
   before_action :check_auth
   def check_auth
     raise ArgumentError, 'BadRequest Parameter' if payload.blank?
