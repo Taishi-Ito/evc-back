@@ -2,8 +2,8 @@ class WorkGroupsController < ApplicationController
   def index
     user = User.find_by(uid: params["uid"])
     work_groups = WorkGroup.where(user_id: user.id)
-    work_group_titles = work_groups.map {|wg| wg["title"]}
     if work_groups
+      work_group_titles = work_groups.map {|wg| wg["title"]}
       render json: {work_group_titles: work_group_titles}, status: 200
     else
       render json: {work_group_titles: nil}, status: 200
@@ -17,7 +17,7 @@ class WorkGroupsController < ApplicationController
       work_group.save
       render json: {"id": work_group.id, "title": work_group.title}, status: 200
     else
-      render json: {"message": "ワークグループが作成できませんでした。"}, status: 400
+      render json: {message: "送信した値が不正です。"}, status: 400
     end
   end
 
