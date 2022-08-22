@@ -5,7 +5,7 @@ class UsersController < ApplicationController
     user = User.new(user_params.merge("uid": payload['sub']))
     if user.valid?
       user.save
-      render json: {"name": user.name, "locale": user.locale}, status: 200
+      render json: {"name": user.name, "locale": user.locale}, status: 201
     else
       render json: {message: "送信した値が不正です。"}, status: 400
     end
@@ -14,7 +14,7 @@ class UsersController < ApplicationController
   def destroy
     user = User.find_by(uid: params["uid"])
     user.destroy
-    render json: {is_destroy: true}, status: 200
+    render json: {is_destroy: true}, status: 204
   end
 
   def show
