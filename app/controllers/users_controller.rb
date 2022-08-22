@@ -5,32 +5,24 @@ class UsersController < ApplicationController
     user = User.new(user_params.merge("uid": payload['sub']))
     if user.valid?
       user.save
-      render json: {"name": user.name, "locale": user.locale}, status: 200
+      render json: {"name": user.name, "locale": user.locale}, status: 201
     else
-      render json: {"name": nil, "locale": nil}, status: 400
+      render json: {message: "送信した値が不正です。"}, status: 400
     end
   end
 
   def destroy
     user = User.find_by(uid: params["uid"])
-    begin
-      user.destroy
-      render json: {is_destroy: true}, status: 200
-    rescue => exception
-      render json: {is_destroy: false, error_message: exception}, status: 400
-    end
+    user.destroy
+    render json: {is_destroy: true}, status: 204
   end
 
   def show
     user = User.find_by(uid: params["id"])
-    if user
-      if user.name
-        render json: {"is_user": true, "is_name": true, "name": user.name, "locale": user.locale}
-      else
-        render json: {"is_user": true, "is_name": false, "name": user.name, "locale": user.locale}
-      end
+    if user && user.name
+      render json: {"name": user.name, "locale": user.locale}, status: 200
     else
-      render json: {"is_user": false, "is_name": false}
+      render json: {message: "ユーザーが見つかりません。"}, status: 400
     end
   end
 
