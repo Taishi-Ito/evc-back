@@ -17,17 +17,16 @@ class WorkGroupsController < ApplicationController
       work_group.save
       render json: {"id": work_group.id, "title": work_group.title}, status: 201
     else
-      render json: {message: "送信した値が不正です。"}, status: 400
+      render json: {message: work_group.errors.full_messages.join("<br>")}, status: 400
     end
   end
 
   def update
     work_group = WorkGroup.find(work_group_params["id"])
-    result = work_group.update(title: work_group_params["title"])
-    if result
+    if work_group.update!(title: work_group_params["title"])
       render json: {work_group_titles: work_group.title}, status: 200
     else
-      render json: {message: "送信した値が不正です。", work_group_titles: work_group.title}, status: 400
+      render json: {message: work_group.errors.full_messages.join("<br>"), work_group_titles: work_group.title}, status: 400
     end
   end
 

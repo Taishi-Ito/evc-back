@@ -7,7 +7,7 @@ class UsersController < ApplicationController
       user.save
       render json: {"name": user.name, "locale": user.locale}, status: 201
     else
-      render json: {message: "送信した値が不正です。"}, status: 400
+      render json: {message: user.errors.full_messages.join("<br>")}, status: 400
     end
   end
 
