@@ -21,8 +21,18 @@ class WorkGroupsController < ApplicationController
     end
   end
 
+  def update
+    work_group = WorkGroup.find(work_group_params["id"])
+    result = work_group.update(title: work_group_params["title"])
+    if result
+      render json: {work_group_titles: work_group.title}, status: 200
+    else
+      render json: {message: "送信した値が不正です。", work_group_titles: work_group.title}, status: 400
+    end
+  end
+
   private
   def work_group_params
-    params.require(:work_group).permit(:title, :uid)
+    params.require(:work_group).permit(:title, :uid, :id)
   end
 end
