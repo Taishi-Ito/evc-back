@@ -22,7 +22,7 @@ class UsersController < ApplicationController
     if user && user.name
       render json: {"name": user.name, "locale": user.locale}, status: 200
     else
-      render json: {message: "ユーザーが見つかりません。"}, status: 400
+      render json: {message: "ユーザーが見つかりません。"}, status: 204
     end
   end
 
