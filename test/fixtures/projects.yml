@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  work_group: 
+  title: MyString
+  created_by: MyString
+
+two:
+  work_group: 
+  title: MyString
+  created_by: MyString
