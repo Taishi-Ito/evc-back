@@ -22,11 +22,14 @@ class WorkGroupsController < ApplicationController
   end
 
   def update
-    work_group = WorkGroup.find(work_group_params["id"])
-    if work_group.update!(title: work_group_params["title"])
-      render json: {work_group_titles: work_group.title}, status: 200
+    if work_group = WorkGroup.find(work_group_params["id"])
+      if work_group.update!(title: work_group_params["title"])
+        render json: {work_group_titles: work_group.title, id: work_group.id}, status: 200
+      else
+        render json: {message: work_group.errors.full_messages.join("<br>")}, status: 400
+      end
     else
-      render json: {message: work_group.errors.full_messages.join("<br>"), work_group_titles: work_group.title}, status: 400
+      render json: {message: work_group.errors.full_messages.join("<br>")}, status: 404
     end
   end
 
