@@ -22,6 +22,16 @@ class WorkGroupsController < ApplicationController
     end
   end
 
+  def destroy
+    if work_group = WorkGroup.find(params["id"])
+      work_group_id= work_group.id
+      work_group.destroy!
+      render json: {work_group_id: work_group_id}, status: 200
+    else
+      render json: {message: work_group.errors.full_messages.join("<br>")}, status: 404
+    end
+  end
+
   private
   def work_group_params
     params.require(:work_group).permit(:title, :uid, :id)
