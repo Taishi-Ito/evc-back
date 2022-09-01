@@ -7,4 +7,19 @@ class ProjectsController < ApplicationController
       render json: {message: "ワークグループを取得できませんでした。"}, status: 404
     end
   end
+
+  def create
+    project = Project.new(title: project_params["title"], work_group_id: project_params["work_group_id"], created_by: project_params["uid"])
+    if project.valid?
+      project.save
+      render json: {"id": project.id, "title": project.title, "work_group_id": project.work_group_id}, status: 201
+    else
+      render json: {message: project.errors.full_messages.join("<br>")}, status: 400
+    end
+  end
+
+  private
+  def project_params
+    params.require(:project).permit(:title, :uid, :work_group_id)
+  end
 end
