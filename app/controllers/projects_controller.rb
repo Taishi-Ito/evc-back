@@ -18,8 +18,20 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def update
+    if project = Project.find(project_params["project_id"])
+      if project.update!(title: project_params["title"])
+        render json: {project_titles: project.title, project_id: project.id,work_group_id: project.work_group_id}, status: 200
+      else
+        render json: {message: project.errors.full_messages.join("<br>")}, status: 400
+      end
+    else
+      render json: {message: project.errors.full_messages.join("<br>")}, status: 404
+    end
+  end
+
   private
   def project_params
-    params.require(:project).permit(:title, :uid, :work_group_id)
+    params.require(:project).permit(:title, :uid, :work_group_id, :project_id)
   end
 end
