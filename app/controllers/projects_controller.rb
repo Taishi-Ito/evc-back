@@ -30,6 +30,17 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def destroy
+    if project = Project.find(params["id"])
+      project_id= project.id
+      work_group_id = project.work_group_id
+      project.destroy!
+      render json: {work_group_id: work_group_id, project_id: project_id}, status: 200
+    else
+      render json: {message: project.errors.full_messages.join("<br>")}, status: 404
+    end
+  end
+
   private
   def project_params
     params.require(:project).permit(:title, :uid, :work_group_id, :project_id)
