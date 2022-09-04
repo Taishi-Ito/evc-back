@@ -18,10 +18,11 @@ ActiveRecord::Schema.define(version: 2022_09_04_021951) do
   create_table "capital_investment_records", force: :cascade do |t|
     t.bigint "capital_investment_id", null: false
     t.integer "year"
-    t.integer "existing_facilities"
-    t.integer "new_facilities"
-    t.integer "d_existing_facilities"
-    t.integer "d_new_facilities"
+    t.integer "month"
+    t.decimal "existing_facilities", precision: 19, scale: 3
+    t.decimal "new_facilities", precision: 19, scale: 3
+    t.decimal "d_existing_facilities", precision: 19, scale: 3
+    t.decimal "d_new_facilities", precision: 19, scale: 3
     t.integer "d_year"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
