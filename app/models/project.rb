@@ -1,4 +1,5 @@
 class Project < ApplicationRecord
+  has_many :capital_investment, dependent: :destroy
   belongs_to :work_group
   validates :title, presence: true
 
