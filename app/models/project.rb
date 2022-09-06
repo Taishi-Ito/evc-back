@@ -19,4 +19,13 @@ class Project < ApplicationRecord
     end
     wg_pj_lists
   end
+
+  def create_default_modelset
+    create_capital_investment
+  end
+
+  private
+  def create_capital_investment uid
+    CapitalInvestment.create(title: "新しいモデル", unit: "yen", fixed: 0, created_by: uid, edited_by: uid)
+  end
 end

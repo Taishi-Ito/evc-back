@@ -12,6 +12,7 @@ class ProjectsController < ApplicationController
     project = Project.new(title: project_params["title"], work_group_id: project_params["work_group_id"], created_by: project_params["uid"])
     if project.valid?
       project.save
+      project.create_default_modelset current_user.uid
       render json: {"id": project.id, "title": project.title, "work_group_id": project.work_group_id}, status: 201
     else
       render json: {message: project.errors.full_messages.join("<br>")}, status: 400
