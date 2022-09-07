@@ -24,6 +24,20 @@ class CapitalInvestmentRecordsController < ApplicationController
     end
   end
 
+  def destroy
+    if capital_investment_record = CapitalInvestmentRecord.find(params["id"].to_i)
+      capital_investment_record.destroy!
+      capital_investment = CapitalInvestment.find(params["capital_investment_id"].to_i)
+      capital_investment.delete_from_sequence params["id"]
+      capital_investment.check_and_create_record
+      capital_investment.save!
+      records = capital_investment.records
+      render json: {capital_investments: records}, status: 200
+    else
+      render json: {message: project.errors.full_messages.join("<br>")}, status: 404
+    end
+  end
+
   private
   def capital_investment_record_params
     params.require(:capital_investment_record).permit(:row, :content, :capital_investment_id, :record_id, :type, :year)
