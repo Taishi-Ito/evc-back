@@ -8,4 +8,6 @@ Rails.application.routes.draw do
   delete "users/destroy" => "users#destroy"
   resources :work_groups
   resources :projects
+  resources :capital_investments
+  resources :capital_investment_records
 end
