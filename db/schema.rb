@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_04_021951) do
+ActiveRecord::Schema.define(version: 2022_09_06_231445) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 2022_09_04_021951) do
     t.string "edited_by"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.text "sequence"
     t.index ["project_id"], name: "index_capital_investments_on_project_id"
   end
 
