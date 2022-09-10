@@ -1,0 +1,2 @@
+class PlRecordsController < ApplicationController
+end

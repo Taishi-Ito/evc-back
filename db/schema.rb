@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_10_022524) do
+ActiveRecord::Schema.define(version: 2022_09_10_022933) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,27 @@ ActiveRecord::Schema.define(version: 2022_09_10_022524) do
     t.datetime "updated_at", precision: 6, null: false
     t.text "sequence"
     t.index ["project_id"], name: "index_capital_investments_on_project_id"
+  end
+
+  create_table "pl_records", force: :cascade do |t|
+    t.bigint "pl_id", null: false
+    t.integer "year"
+    t.integer "month"
+    t.decimal "customer", precision: 19, scale: 3
+    t.decimal "av_customer_spend", precision: 19, scale: 3
+    t.decimal "sales_const", precision: 19, scale: 3
+    t.decimal "sales_const_ratio", precision: 6, scale: 3
+    t.decimal "labor_cost", precision: 19, scale: 3
+    t.decimal "cost_other", precision: 19, scale: 3
+    t.decimal "no_op_income", precision: 19, scale: 3
+    t.decimal "interest_expense", precision: 19, scale: 3
+    t.decimal "interest_rate", precision: 6, scale: 3
+    t.decimal "other", precision: 19, scale: 3
+    t.decimal "tax", precision: 19, scale: 3
+    t.decimal "tax_rate", precision: 6, scale: 3
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["pl_id"], name: "index_pl_records_on_pl_id"
   end
 
   create_table "pls", force: :cascade do |t|
@@ -82,6 +103,7 @@ ActiveRecord::Schema.define(version: 2022_09_10_022524) do
 
   add_foreign_key "capital_investment_records", "capital_investments"
   add_foreign_key "capital_investments", "projects"
+  add_foreign_key "pl_records", "pls"
   add_foreign_key "pls", "projects"
   add_foreign_key "work_groups", "users"
 end
