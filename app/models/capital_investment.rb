@@ -2,6 +2,8 @@ class CapitalInvestment < ApplicationRecord
   has_many :capital_investment_record, dependent: :destroy
   belongs_to :project
   serialize :sequence
+  validates :unit, presence: true
+  validates :fixed, presence: true
 
   def records
     capital_investment_record = CapitalInvestmentRecord.where(capital_investment_id: self.id)
