@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_06_231445) do
+ActiveRecord::Schema.define(version: 2022_09_10_022524) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,19 @@ ActiveRecord::Schema.define(version: 2022_09_06_231445) do
     t.index ["project_id"], name: "index_capital_investments_on_project_id"
   end
 
+  create_table "pls", force: :cascade do |t|
+    t.bigint "project_id", null: false
+    t.text "sequence"
+    t.string "title"
+    t.string "unit"
+    t.integer "fixed"
+    t.string "created_by"
+    t.string "edited_by"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["project_id"], name: "index_pls_on_project_id"
+  end
+
   create_table "projects", force: :cascade do |t|
     t.bigint "work_group_id"
     t.string "title"
@@ -69,5 +82,6 @@ ActiveRecord::Schema.define(version: 2022_09_06_231445) do
 
   add_foreign_key "capital_investment_records", "capital_investments"
   add_foreign_key "capital_investments", "projects"
+  add_foreign_key "pls", "projects"
   add_foreign_key "work_groups", "users"
 end
