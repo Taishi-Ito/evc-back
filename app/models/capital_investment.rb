@@ -6,9 +6,9 @@ class CapitalInvestment < ApplicationRecord
   validates :fixed, presence: true
 
   def records
-    capital_investment_record = CapitalInvestmentRecord.where(capital_investment_id: self.id)
+    capital_investment_records = CapitalInvestmentRecord.where(capital_investment_id: self.id)
     records = self.sequence.map do |num|
-      capital_investment_record.find(num)
+      capital_investment_records.find(num)
     end
 
     if records.length > 0

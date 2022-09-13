@@ -6,8 +6,8 @@ class CreatePlRecords < ActiveRecord::Migration[6.1]
       t.integer :month
       t.decimal :customer, precision: 19, scale: 3
       t.decimal :av_customer_spend, precision: 19, scale: 3
-      t.decimal :sales_const, precision: 19, scale: 3
-      t.decimal :sales_const_ratio, precision: 6, scale: 3
+      t.decimal :sales_cost, precision: 19, scale: 3
+      t.decimal :sales_cost_ratio, precision: 6, scale: 3
       t.decimal :labor_cost, precision: 19, scale: 3
       t.decimal :cost_other, precision: 19, scale: 3
       t.decimal :no_op_income, precision: 19, scale: 3
