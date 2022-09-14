@@ -10,4 +10,6 @@ Rails.application.routes.draw do
   resources :projects
   resources :capital_investments
   resources :capital_investment_records
+  resources :pls
+  resources :pl_records
 end

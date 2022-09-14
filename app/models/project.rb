@@ -1,5 +1,6 @@
 class Project < ApplicationRecord
   has_many :capital_investment, dependent: :destroy
+  has_many :pl, dependent: :destroy
   belongs_to :work_group
   validates :title, presence: true
 
@@ -23,20 +24,37 @@ class Project < ApplicationRecord
   def create_default_modelset uid
     create_capital_investment uid
     create_capital_investment_record
+    create_pl uid
+    create_pl_record
   end
 
   private
   def create_capital_investment uid
-    capital_investment = CapitalInvestment.create!(project_id: self.id, title: "新しいモデル", unit: "yen", fixed: 0, created_by: uid, edited_by: uid, sequence: [])
+    CapitalInvestment.create!(project_id: self.id, title: "新しいモデル", unit: "yen", fixed: 0, created_by: uid, edited_by: uid, sequence: [])
   end
 
   def create_capital_investment_record
     new_capital_investment = CapitalInvestment.find_by(project_id: self.id)
-    create_capital_investment_record = CapitalInvestmentRecord.create!(
+    new_capital_investment_record = CapitalInvestmentRecord.create!(
       capital_investment_id: new_capital_investment.id,
       year: 0, month: 0, existing_facilities: 0, new_facilities: 0, d_existing_facilities: 0, d_new_facilities: 0, d_year: 0
     )
-    new_capital_investment.sequence << create_capital_investment_record.id
+    new_capital_investment.sequence << new_capital_investment_record.id
     new_capital_investment.save!
+  end
+
+  def create_pl uid
+    Pl.create!(project_id: self.id, title: "新しいモデル", unit: "yen", fixed: 0, created_by: uid, edited_by: uid, sequence: [])
+  end
+
+  def create_pl_record
+    new_pl = Pl.find_by(project_id: self.id)
+    new_pl_record = PlRecord.create!(
+      pl_id: new_pl.id,
+      year: 0, month: 0, customer: 0, av_customer_spend: 0, sales_cost: 0 , sales_cost_ratio: 0, labor_cost: 0, cost_other: 0,
+      no_op_income: 0, interest_expense: 0, interest_rate: 0, other: 0, tax: 0, tax_rate: 0
+    )
+    new_pl.sequence << new_pl_record.id
+    new_pl.save!
   end
 end
