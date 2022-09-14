@@ -17,8 +17,16 @@ class PlRecordsController < ApplicationController
 
   def update
     if pl_record = PlRecord.find(params["id"])
-      pl_record.update!("#{pl_record_params["row"]}": pl_record_params["content"])
-      render json: {year: pl_record.year, row: pl_record_params["row"], content: pl_record["#{pl_record_params["row"]}"], record_id: pl_record.id}
+      updated_rows = []
+      pl_record_params["rows"].each do |rows|
+        updated_row = {}
+        pl_record.update!("#{rows['row']}": rows["content"])
+        updated_row["row"] = rows['row']
+        updated_row["content"] = pl_record.send("#{rows['row']}")
+        updated_rows << updated_row
+      end
+      render json: {year: pl_record.year, rows: updated_rows,record_id: pl_record.id}
+
     else
       render json: {message: pl_record.errors.full_messages.join("<br>")}, status: 404
     end
@@ -40,6 +48,6 @@ class PlRecordsController < ApplicationController
 
   private
   def pl_record_params
-    params.require(:pl_record).permit(:row, :content, :pl_id, :record_id, :type, :year)
+    params.require(:pl_record).permit(:pl_id, :record_id, :type, :year, rows: [:row, :content])
   end
 end
