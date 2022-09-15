@@ -1,0 +1,2 @@
+class BstsController < ApplicationController
+end

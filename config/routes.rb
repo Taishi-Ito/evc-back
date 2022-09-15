@@ -12,4 +12,5 @@ Rails.application.routes.draw do
   resources :capital_investment_records
   resources :pls
   resources :pl_records
+  resources :bsts
 end
