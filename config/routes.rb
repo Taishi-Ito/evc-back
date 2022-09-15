@@ -13,4 +13,5 @@ Rails.application.routes.draw do
   resources :pls
   resources :pl_records
   resources :bsts
+  resources :bst_records
 end

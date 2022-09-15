@@ -1,0 +1,2 @@
+class BstRecordsController < ApplicationController
+end

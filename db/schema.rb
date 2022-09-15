@@ -10,10 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_15_004508) do
+ActiveRecord::Schema.define(version: 2022_09_15_005132) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bst_records", force: :cascade do |t|
+    t.bigint "bst_id", null: false
+    t.integer "year"
+    t.integer "month"
+    t.decimal "cash", precision: 19, scale: 3
+    t.decimal "accounts_receivable", precision: 19, scale: 3
+    t.decimal "ar_sales_ratio", precision: 6, scale: 3
+    t.decimal "merchandise_other", precision: 19, scale: 3
+    t.decimal "mo_sales_ratio", precision: 6, scale: 3
+    t.decimal "investment_other", precision: 19, scale: 3
+    t.decimal "accounts_payable", precision: 19, scale: 3
+    t.decimal "cost_ratio", precision: 6, scale: 3
+    t.decimal "cd_other", precision: 19, scale: 3
+    t.decimal "long_term_debt", precision: 19, scale: 3
+    t.decimal "fl_other", precision: 19, scale: 3
+    t.decimal "capital", precision: 19, scale: 3
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["bst_id"], name: "index_bst_records_on_bst_id"
+  end
 
   create_table "bsts", force: :cascade do |t|
     t.bigint "project_id", null: false
@@ -114,6 +135,7 @@ ActiveRecord::Schema.define(version: 2022_09_15_004508) do
     t.index ["user_id"], name: "index_work_groups_on_user_id"
   end
 
+  add_foreign_key "bst_records", "bsts"
   add_foreign_key "bsts", "projects"
   add_foreign_key "capital_investment_records", "capital_investments"
   add_foreign_key "capital_investments", "projects"
