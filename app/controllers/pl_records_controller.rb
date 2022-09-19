@@ -11,7 +11,7 @@ class PlRecordsController < ApplicationController
       records = pl.records
       render json: {pls: records}, status: 200
     else
-      render json: {message: "設備投資のレコードを追加できませんでした。"}, status: 404
+      render json: {message: "P/Lのレコードを追加できませんでした。"}, status: 404
     end
   end
 

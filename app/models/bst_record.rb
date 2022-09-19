@@ -14,4 +14,5 @@ class BstRecord < ApplicationRecord
   validates :long_term_debt, numericality: true, presence: true
   validates :fl_other, numericality: true, presence: true
   validates :capital, numericality: true, presence: true
+  validates :surplus, numericality: true, presence: true
 end

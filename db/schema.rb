@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 2022_09_15_005132) do
     t.decimal "ar_sales_ratio", precision: 6, scale: 3
     t.decimal "merchandise_other", precision: 19, scale: 3
     t.decimal "mo_sales_ratio", precision: 6, scale: 3
+    t.decimal "land_buildings", precision: 19, scale: 3
     t.decimal "investment_other", precision: 19, scale: 3
     t.decimal "accounts_payable", precision: 19, scale: 3
     t.decimal "cost_ratio", precision: 6, scale: 3
@@ -31,6 +32,7 @@ ActiveRecord::Schema.define(version: 2022_09_15_005132) do
     t.decimal "long_term_debt", precision: 19, scale: 3
     t.decimal "fl_other", precision: 19, scale: 3
     t.decimal "capital", precision: 19, scale: 3
+    t.decimal "surplus", precision: 19, scale: 3
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["bst_id"], name: "index_bst_records_on_bst_id"
