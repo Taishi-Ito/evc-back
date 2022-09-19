@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_19_014322) do
+ActiveRecord::Schema.define(version: 2022_09_19_015256) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,6 +76,15 @@ ActiveRecord::Schema.define(version: 2022_09_19_014322) do
     t.datetime "updated_at", precision: 6, null: false
     t.text "sequence"
     t.index ["project_id"], name: "index_capital_investments_on_project_id"
+  end
+
+  create_table "cf_records", force: :cascade do |t|
+    t.bigint "cf_id", null: false
+    t.integer "year"
+    t.integer "month"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["cf_id"], name: "index_cf_records_on_cf_id"
   end
 
   create_table "cfs", force: :cascade do |t|
@@ -154,6 +163,7 @@ ActiveRecord::Schema.define(version: 2022_09_19_014322) do
   add_foreign_key "bsts", "projects"
   add_foreign_key "capital_investment_records", "capital_investments"
   add_foreign_key "capital_investments", "projects"
+  add_foreign_key "cf_records", "cfs"
   add_foreign_key "cfs", "projects"
   add_foreign_key "pl_records", "pls"
   add_foreign_key "pls", "projects"

@@ -15,4 +15,5 @@ Rails.application.routes.draw do
   resources :bsts
   resources :bst_records
   resources :cfs
+  resources :cf_records
 end
