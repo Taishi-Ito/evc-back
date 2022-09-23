@@ -82,6 +82,8 @@ ActiveRecord::Schema.define(version: 2022_09_19_015256) do
     t.bigint "cf_id", null: false
     t.integer "year"
     t.integer "month"
+    t.decimal "payout_ratio", precision: 19, scale: 3
+    t.decimal "dividend", precision: 19, scale: 3
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["cf_id"], name: "index_cf_records_on_cf_id"

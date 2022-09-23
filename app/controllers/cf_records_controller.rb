@@ -1,7 +1,7 @@
 class CfRecordsController < ApplicationController
   def create
     cf_record = CfRecord.create!(
-      cf_id: cf_record_params["cf_id"], year: 0, month: 0
+      cf_id: cf_record_params["cf_id"], year: 0, month: 0, payout_ratio: 0, dividend: 0
     )
     cf = Cf.find(cf_record_params["cf_id"])
     cf.reorder(cf_record_params["type"], cf_record_params["record_id"], cf_record.id)

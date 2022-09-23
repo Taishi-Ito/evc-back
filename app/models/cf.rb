@@ -17,7 +17,9 @@ class Cf < ApplicationRecord
           record_id: record.id,
           cf: record.cf_id,
           year: record.year,
-          month: record.month
+          month: record.month,
+          payout_ratio: record.payout_ratio,
+          dividend: record.dividend
         }
         hash
       end
@@ -58,7 +60,7 @@ class Cf < ApplicationRecord
   private
   def create_cf_record
     create_cf_record = CfRecord.create!(
-      cf_id: self.id, year: 0, month: 0
+      cf_id: self.id, year: 0, month: 0, payout_ratio: 0, dividend: 0
     )
     self.sequence << create_cf_record.id
   end

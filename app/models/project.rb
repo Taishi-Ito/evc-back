@@ -2,6 +2,7 @@ class Project < ApplicationRecord
   has_many :capital_investment, dependent: :destroy
   has_many :pl, dependent: :destroy
   has_many :bst, dependent: :destroy
+  has_many :cf, dependent: :destroy
   belongs_to :work_group
   validates :title, presence: true
 
@@ -85,7 +86,7 @@ class Project < ApplicationRecord
   def create_cf_record
     new_cf = Cf.find_by(project_id: self.id)
     new_cf_record = CfRecord.create!(
-      bst_id: new_bst.id, year: 0, month: 0
+      cf_id: new_cf.id, year: 0, month: 0, payout_ratio: 0, dividend: 0
     )
     new_cf.sequence << new_cf_record.id
     new_cf.save!
