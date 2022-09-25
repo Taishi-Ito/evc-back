@@ -14,4 +14,6 @@ Rails.application.routes.draw do
   resources :pl_records
   resources :bsts
   resources :bst_records
+  resources :cfs
+  resources :cf_records
 end

@@ -2,6 +2,7 @@ class Project < ApplicationRecord
   has_many :capital_investment, dependent: :destroy
   has_many :pl, dependent: :destroy
   has_many :bst, dependent: :destroy
+  has_many :cf, dependent: :destroy
   belongs_to :work_group
   validates :title, presence: true
 
@@ -29,6 +30,8 @@ class Project < ApplicationRecord
     create_pl_record
     create_bst uid
     create_bst_record
+    create_cf uid
+    create_cf_record
   end
 
   private
@@ -74,5 +77,18 @@ class Project < ApplicationRecord
     )
     new_bst.sequence << new_bst_record.id
     new_bst.save!
+  end
+
+  def create_cf uid
+    Cf.create!(project_id: self.id, title: "新しいモデル", unit: "yen", fixed: 0, created_by: uid, edited_by: uid, sequence: [])
+  end
+
+  def create_cf_record
+    new_cf = Cf.find_by(project_id: self.id)
+    new_cf_record = CfRecord.create!(
+      cf_id: new_cf.id, year: 0, month: 0, payout_ratio: 0, dividend: 0
+    )
+    new_cf.sequence << new_cf_record.id
+    new_cf.save!
   end
 end
