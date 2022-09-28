@@ -1,6 +1,6 @@
 class WorkGroupsController < ApplicationController
   # firebaseauthが不安定なため一時スキップ
-  skip_before_action :authenticate_user
+  # skip_before_action :authenticate_user
   def create
     user = User.find_by(uid: work_group_params["uid"])
     work_group = WorkGroup.new(title: work_group_params["title"], user_id: user.id)

@@ -1,6 +1,6 @@
 class CapitalInvestmentRecordsController < ApplicationController
   # firebaseauthが不安定なため一時スキップ
-  skip_before_action :authenticate_user
+  # skip_before_action :authenticate_user
   def create
     capital_investment_record = CapitalInvestmentRecord.create!(
       capital_investment_id: capital_investment_record_params["capital_investment_id"],

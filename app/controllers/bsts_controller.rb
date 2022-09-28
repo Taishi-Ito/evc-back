@@ -1,6 +1,6 @@
 class BstsController < ApplicationController
   # firebaseauthが不安定なため一時スキップ
-  skip_before_action :authenticate_user
+  # skip_before_action :authenticate_user
   def index
     bst = Bst.find_by(project_id: params["project_id"])
     if bst

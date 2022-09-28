@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   # firebaseauthが不安定なため一時スキップ
-  skip_before_action :authenticate_user
+  # skip_before_action :authenticate_user
   def index
     # work_group_project_lists = Project.get_wg_pj_lists current_user.id
     work_group_project_lists = Project.get_wg_pj_lists(User.current_user(params["uid"]).id)
