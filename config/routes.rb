@@ -4,7 +4,7 @@ Rails.application.routes.draw do
       resources :hello, only: [:index]
     end
   end
-  resources :users, only: [:create, :show, :update]
+  resources :users, only: [:create, :show, :update, :destroy]
   delete "users/destroy" => "users#destroy"
   resources :work_groups
   resources :projects
@@ -16,4 +16,5 @@ Rails.application.routes.draw do
   resources :bst_records
   resources :cfs
   resources :cf_records
+  get "search" => "projects#search"
 end

@@ -34,6 +34,14 @@ class Project < ApplicationRecord
     create_cf_record
   end
 
+  def create_response
+    project = {}
+    project["id"] = self.id
+    project["title"] = self.title
+    project["work_group"] = WorkGroup.find(self.work_group_id).title
+    project
+  end
+
   private
   def create_capital_investment uid
     CapitalInvestment.create!(project_id: self.id, title: "新しいモデル", unit: "yen", fixed: 0, created_by: uid, edited_by: uid, sequence: [])

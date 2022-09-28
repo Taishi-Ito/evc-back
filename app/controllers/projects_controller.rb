@@ -37,6 +37,23 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def search
+    if params[:q].present?
+      q = Project.ransack(title_cont: params[:q], user_id: current_user.id)
+      results = q.result.to_a
+      results.map! do |result|
+        result = result.create_response
+      end
+      unless results.empty?
+        render json: {results: results}, status: 200
+      else
+        render json: {results: nil}, status: 200
+      end
+    else
+      render json: {message: "プロジェクト名を入力してください。"}, status: 404
+    end
+  end
+
   private
   def project_params
     params.require(:project).permit(:title, :uid, :work_group_id, :project_id)
