@@ -1,6 +1,9 @@
 class ProjectsController < ApplicationController
+  # firebaseauthが不安定なため一時スキップ
+  skip_before_action :authenticate_user
   def index
-    work_group_project_lists = Project.get_wg_pj_lists current_user.id
+    # work_group_project_lists = Project.get_wg_pj_lists current_user.id
+    work_group_project_lists = Project.get_wg_pj_lists(User.current_user(params["uid"]).id)
     if work_group_project_lists
       render json: {work_group_project_lists: work_group_project_lists}, status: 200
     else
@@ -10,7 +13,8 @@ class ProjectsController < ApplicationController
 
   def create
     project = Project.create!(title: project_params["title"], work_group_id: project_params["work_group_id"], created_by: project_params["uid"])
-    project.create_default_modelset current_user.uid
+    # project.create_default_modelset current_user.uid
+    project.create_default_modelset(User.current_user(project_params["uid"]).uid)
     render json: {"id": project.id, "title": project.title, "work_group_id": project.work_group_id}, status: 201
   end
 
@@ -39,7 +43,8 @@ class ProjectsController < ApplicationController
 
   def search
     if params[:q].present?
-      q = Project.ransack(title_cont: params[:q], user_id: current_user.id)
+      # q = Project.ransack(title_cont: params[:q], user_id: current_user.id)
+      q = Project.ransack(title_cont: params[:q], user_id: User.current_user(params["uid"]).id)
       results = q.result.to_a
       results.map! do |result|
         result = result.create_response

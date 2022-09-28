@@ -1,4 +1,6 @@
 class PlsController < ApplicationController
+  # firebaseauthが不安定なため一時スキップ
+  skip_before_action :authenticate_user
   def index
     pl = Pl.find_by(project_id: params["project_id"])
     if pl

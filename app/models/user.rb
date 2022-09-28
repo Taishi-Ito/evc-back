@@ -3,4 +3,8 @@ class User < ApplicationRecord
   validates :uid, presence: true
   validates :name, presence: true
   validates :locale, presence: true
+
+  def self.current_user uid
+    User.find_by(uid: uid)
+  end
 end

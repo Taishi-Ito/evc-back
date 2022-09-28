@@ -1,4 +1,6 @@
 class PlRecordsController < ApplicationController
+  # firebaseauthが不安定なため一時スキップ
+  skip_before_action :authenticate_user
   def create
     pl_record = PlRecord.create!(
       pl_id: pl_record_params["pl_id"],
