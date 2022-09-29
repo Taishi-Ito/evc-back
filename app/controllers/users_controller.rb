@@ -13,7 +13,7 @@ class UsersController < ApplicationController
 
   def destroy
     user = User.find_by(uid: params["uid"])
-    user.destroy
+    user.destroy!
     render json: {is_destroy: true}, status: 204
   end
 
