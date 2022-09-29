@@ -6,15 +6,15 @@ Rails.application.routes.draw do
   end
   resources :users, only: [:create, :show, :update, :destroy]
   delete "users/destroy" => "users#destroy"
-  resources :work_groups
-  resources :projects
-  resources :capital_investments
-  resources :capital_investment_records
-  resources :pls
-  resources :pl_records
-  resources :bsts
-  resources :bst_records
-  resources :cfs
-  resources :cf_records
+  resources :work_groups, only: [:create, :update, :destroy]
+  resources :projects, only: [:index, :create, :update, :destroy]
+  resources :capital_investments, only: [:index, :update]
+  resources :capital_investment_records, only: [:create, :update, :destroy]
+  resources :pls, only: [:index, :update]
+  resources :pl_records, only: [:create, :update, :destroy]
+  resources :bsts, only: [:index, :update]
+  resources :bst_records, only: [:create, :update, :destroy]
+  resources :cfs, only: [:index, :update]
+  resources :cf_records, only: [:create, :update, :destroy]
   get "search" => "projects#search"
 end
