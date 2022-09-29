@@ -1,4 +1,6 @@
 class BstRecordsController < ApplicationController
+  # firebaseauthが不安定なため一時スキップ
+  # skip_before_action :authenticate_user
   def create
     bst_record = BstRecord.create!(
       bst_id: bst_record_params["bst_id"],

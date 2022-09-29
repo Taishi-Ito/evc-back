@@ -1,4 +1,6 @@
 class CfRecordsController < ApplicationController
+  # firebaseauthが不安定なため一時スキップ
+  # skip_before_action :authenticate_user
   def create
     cf_record = CfRecord.create!(
       cf_id: cf_record_params["cf_id"], year: 0, month: 0, payout_ratio: 0, dividend: 0

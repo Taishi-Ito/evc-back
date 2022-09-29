@@ -1,4 +1,6 @@
 class CapitalInvestmentsController < ApplicationController
+  # firebaseauthが不安定なため一時スキップ
+  # skip_before_action :authenticate_user
   def index
     capital_investment = CapitalInvestment.find_by(project_id: params["project_id"])
     if capital_investment
