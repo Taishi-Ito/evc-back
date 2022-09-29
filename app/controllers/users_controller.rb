@@ -44,7 +44,6 @@ class UsersController < ApplicationController
   end
 
   def payload
-    puts "~~~(FirebaseIdToken::Signature.verify token)~~~~~#{FirebaseIdToken::Signature.verify token}~~~~~~~"
     @payload ||= FirebaseIdToken::Signature.verify token
   end
 end
