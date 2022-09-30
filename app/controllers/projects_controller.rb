@@ -43,7 +43,7 @@ class ProjectsController < ApplicationController
 
   def search
     if params[:q].present?
-      q = Project.ransack(title_cont: params[:q], created_by: current_user.uid)
+      q = Project.where(created_by: current_user.uid).ransack(title_cont: params[:q])
       # q = Project.ransack(title_cont: params[:q], user_id: User.current_user(params["uid"]).id)
       results = q.result.to_a
       results.map! do |result|
